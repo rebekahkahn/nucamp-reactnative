@@ -1,16 +1,8 @@
 import React, { Component } from 'react';
 import { Text, ScrollView } from 'react-native';
 import { Card } from 'react-native-elements';
-//data gets imported here later biatch
 
 class Contact extends Component {
-    constructor(props) {
-        super(props);
-        // this.state = {
-        //     data: null
-        // };
-    }
-
     static navigationOptions = {
         title: 'Contact Us'
     }
