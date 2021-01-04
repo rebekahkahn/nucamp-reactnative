@@ -3,7 +3,7 @@ import { Text, ScrollView, FlatList } from 'react-native';
 import { Card, ListItem } from 'react-native-elements';
 import { PARTNERS } from '../shared/partners';
 
-function Main() {
+function Mission() {
     return (
         <Card title="Our Mission" wrapperStyle={{margin: 10}}>
             <Text>
@@ -18,24 +18,6 @@ function Main() {
     );
 
 }
-
-
-function RenderItem({item}) {
-    if (item) {
-        return (
-            <Card
-                featuredTitle={item.name}
-                image={require('./images/react-lake.jpg')}
-            >
-                <Text style={{margin: 10}}>
-                    {item.description}
-                </Text>
-            </Card>
-        );
-    }
-    return <View />;
-}
-
 
 class About extends Component {
     constructor(props) {
@@ -62,7 +44,7 @@ class About extends Component {
         }
         return (
             <ScrollView>
-                <Main />
+                <Mission />
                 <Card title="Community Partners" wrapperStyle={{margin: 10}}>
                     <FlatList
                         data={this.state.partners}
