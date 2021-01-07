@@ -13,8 +13,8 @@ const mapStateToProps = state => {
 
 function Mission() {
     return (
-        <Card title="Our Mission" wrapperStyle={{margin: 10}}>
-            <Text>
+        <Card title="Our Mission">
+            <Text wrapperStyle={{margin: 10}}>
                 We present a curated database of the best campsites in the vast woods and backcountry
                 of the World Wide Web Wilderness. We increase access to adventure for the public while 
                 promoting safe and respectful use of resources. The expert wilderness trekkers on our 
@@ -32,15 +32,14 @@ class About extends Component {
         title: 'About Us'
     }
     
-    render () {
-        function renderPartner( {item} ) {
+    render() {
+        const renderPartner = ({item}) => {
             return (
                 <ListItem
                     title={item.name}
                     subtitle={item.description}
-                    leftAvatar={{source: {uri: baseUrl + item.image}}}>
-                </ListItem>
-
+                    leftAvatar={{source: {uri: baseUrl + item.image}}}
+                />
             );
         };
 
@@ -55,7 +54,6 @@ class About extends Component {
                 </ScrollView>
             );
         }
-        
         if (this.props.partners.errMess) {
             return (
                 <ScrollView>
@@ -71,7 +69,7 @@ class About extends Component {
         return (
             <ScrollView>
                 <Mission />
-                <Card title="Community Partners" wrapperStyle={{margin: 10}}>
+                <Card title="Community Partners">
                     <FlatList 
                         data={this.props.partners.partners}
                         renderItem={renderPartner}
