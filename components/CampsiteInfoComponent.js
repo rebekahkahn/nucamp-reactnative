@@ -62,7 +62,6 @@ function RenderComments( {comments} ) {
         return (
             <View style={{margin: 10}}>
                 <Text style={{fontSize: 14}}>{item.text}</Text>
-                {/*THIS IS WHERE THE ISSUE HAPPENS */}
                 <Rating 
                     readonly
                     type='star'
@@ -70,7 +69,6 @@ function RenderComments( {comments} ) {
                     imageSize={10}
                     style={{alignItems:'flex-start', paddingVertical: '5%'}}
                 />
-                {/*-------------------------------- */}
                 <Text style={{fontSize: 12}}>{`--${item.author}, ${item.date}`}</Text>
             </View>
         );
@@ -155,12 +153,14 @@ class CampsiteInfo extends Component {
                             leftIcon={{ type: 'font-awesome', name: 'user-o' }}
                             leftIconContainerStyle={{paddingRight: 10}}
                             onChangeText={author => this.setState({ author: author })}
+                            value={this.state.author}
                         />
                         <Input
                             placeholder="Comment"
                             leftIcon={{ type: 'font-awesome', name: 'comment-o' }}
                             leftIconContainerStyle={{paddingRight: 10}}
-                            onChangeText={comment => this.setState({ comment: comment })}
+                            onChangeText={text => this.setState({ text: text })}
+                            value={this.state.text}
                         />
                         <View style={{margin: 10}}>
                             <Button
