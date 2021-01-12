@@ -31,8 +31,6 @@ export const addComments = comments => ({
     payload: comments
 });
 
-
-//this was just added--------
 export const postComment = ( campsiteId, rating, author, text ) => dispatch => {
     const newComment = {
         campsiteId,
@@ -52,8 +50,6 @@ export const addComment = comment => ({
     type: ActionTypes.ADD_COMMENT,
     payload: comment
 });
-//---------------------
-
 
 export const fetchCampsites = () => dispatch => {
 
@@ -176,3 +172,8 @@ export const addFavorite = campsiteId => ({
     type: ActionTypes.ADD_FAVORITE,
     payload: campsiteId
 });
+
+export const deleteFavorite = campsiteId => ({
+    type: ActionTypes.DELETE_FAVORITE,
+    payload: campsiteId
+}); 
