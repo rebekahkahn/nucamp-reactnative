@@ -6,6 +6,7 @@ import * as ImagePicker from "expo-image-picker";
 import * as Permissions from "expo-permissions";
 import { createBottomTabNavigator } from "react-navigation-tabs";
 import { baseUrl } from "../shared/baseUrl";
+
 class LoginTab extends Component {
   constructor(props) {
     super(props);
@@ -121,6 +122,7 @@ class LoginTab extends Component {
 class RegisterTab extends Component {
   constructor(props) {
     super(props);
+
     this.state = {
       username: "",
       password: "",
@@ -141,6 +143,27 @@ class RegisterTab extends Component {
         iconStyle={{ color: tintColor }}
       />
     ),
+  };
+
+  getImageFromCamera = async () => {
+    const cameraPermission = await Permissions.askAsync(Permissions.CAMERA);
+    const cameraRollPermission = await Permissions.askAsync(
+      Permissions.CAMERA_ROLL
+    );
+
+    if (
+      cameraPermission.status === "granted" &&
+      cameraRollPermission.status === "granted"
+    ) {
+      const capturedImage = await ImagePicker.launchCameraAsync({
+        allowsEditing: true,
+        aspect: [1, 1],
+      });
+      if (!capturedImage.cancelled) {
+        console.log(capturedImage);
+        this.setState({ imageUrl: capturedImage.uri });
+      }
+    }
   };
 
   handleRegister() {
@@ -164,6 +187,14 @@ class RegisterTab extends Component {
     return (
       <ScrollView>
         <View style={styles.container}>
+          <View style={styles.imageContainer}>
+            <Image
+              source={{ uri: this.state.imageUrl }}
+              loadingIndicatorSource={require("./images/logo.png")}
+              style={styles.image}
+            />
+            <Button title="Camera" onPress={this.getImageFromCamera} />
+          </View>
           <Input
             placeholder="Username"
             leftIcon={{ type: "font-awesome", name: "user-o" }}
@@ -226,22 +257,6 @@ class RegisterTab extends Component {
               buttonStyle={{ backgroundColor: "#5637DD" }}
             />
           </View>
-          <View style={styles.formButton}>
-            <Button
-              onPress={() => this.props.navigation.navigate("Register")}
-              title="Register"
-              type="clear"
-              icon={
-                <Icon
-                  name="user-plus"
-                  type="font-awesome"
-                  color="blue"
-                  iconStyle={{ marginRight: 10 }}
-                />
-              }
-              titleStyle={{ color: "blue" }}
-            />
-          </View>
         </View>
       </ScrollView>
     );
@@ -267,20 +282,33 @@ const Login = createBottomTabNavigator(
 const styles = StyleSheet.create({
   container: {
     justifyContent: "center",
-    margin: 20,
+    margin: 10,
   },
   formIcon: {
     marginRight: 10,
   },
   formInput: {
-    padding: 10,
+    padding: 8,
   },
   formCheckbox: {
-    margin: 10,
+    margin: 8,
     backgroundColor: null,
   },
   formButton: {
-    margin: 40,
+    margin: 20,
+    marginRight: 40,
+    marginLeft: 40,
+  },
+  imageContainer: {
+    flex: 1,
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-evenly",
+    margin: 10,
+  },
+  image: {
+    width: 60,
+    height: 60,
   },
 });
 
